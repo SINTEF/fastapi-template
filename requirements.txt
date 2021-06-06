@@ -1,7 +1,3 @@
 fastapi
 hypercorn
-typing
-pysftp
-requests
-aioredis
 fastapi-plugins
