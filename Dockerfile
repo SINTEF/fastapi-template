@@ -11,13 +11,13 @@ WORKDIR /app
     
 # Install requirements
 COPY ./requirements.txt . 
-RUN pip install --no-cache-dir --trusted-host pypi.org --trusted-host files.pythonhosted.org --upgrade pip
-RUN pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r requirements.txt
+RUN pip install -q --no-cache-dir --trusted-host pypi.org --trusted-host files.pythonhosted.org --upgrade pip
+RUN pip install -q --trusted-host pypi.org --trusted-host files.pythonhosted.org -r requirements.txt
 
 
 ################# DEVELOPMENT ####################################
 FROM base as development
-RUN pip install  --trusted-host pypi.org --trusted-host files.pythonhosted.org bandit pylint safety mypy pytest pytest-cov
+RUN pip install -q --trusted-host pypi.org --trusted-host files.pythonhosted.org bandit pylint safety mypy pytest pytest-cov
 COPY . .
 
 # Run static security check and linters
