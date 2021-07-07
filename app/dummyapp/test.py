@@ -10,5 +10,4 @@ async def home():
     """
     Home endpoint
     """
-    return 'hello from test'
-    
+    return {"msg": "Hello World"}

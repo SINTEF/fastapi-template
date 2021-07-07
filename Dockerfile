@@ -17,13 +17,17 @@ RUN pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org -r
 
 ################# DEVELOPMENT ####################################
 FROM base as development
-RUN pip install  --trusted-host pypi.org --trusted-host files.pythonhosted.org bandit pylint safety mypy
+RUN pip install  --trusted-host pypi.org --trusted-host files.pythonhosted.org bandit pylint safety mypy pytest pytest-cov
 COPY . .
 
 # Run static security check and linters
 RUN bandit -r app \
+  && safety check -r requirements.txt --bare \
   && pylint app \
-  && safety check -r requirements.txt 
+  && mypy app 
+
+# Run pytest with code coverage
+RUN pytest --cov app tests/
 
 # Run with reload option
 CMD hypercorn wsgi:app --bind 0.0.0.0:8080 --reload
