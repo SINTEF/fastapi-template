@@ -1,0 +1,40 @@
+name: Linting and Testing
+
+on: [push]
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.6, 3.8]
+    
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version:  ${{ matrix.python-version }}
+
+      # Runs a single command using the runners shell
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          pip install bandit pylint safety mypy pytest pytest-cov
+      - name: Run bandit
+        run:
+          bandit -r app
+      - name: Run PyLint
+        run:
+          pylint app
+      - name: Run safety
+        run: |
+          if [ -f requirements.txt ]; then safety check -r requirements.txt --bare; fi
+      - name: Lint with MyPy
+        run:
+          mypy app
+      - name: Run unittests
+        run:
+          pytest --cov app tests/
