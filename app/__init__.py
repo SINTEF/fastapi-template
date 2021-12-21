@@ -2,8 +2,7 @@
 app init
 """
 from fastapi import FastAPI
-from app.dummyapp.test import router
-from app.dummyapp import test
+from app.routers import dummy
 
 
 def create_app():
@@ -11,5 +10,5 @@ def create_app():
     Create the FastAPI app
     """
     app = FastAPI()
-    app.include_router(router)
+    app.include_router(dummy.router)
     return app
