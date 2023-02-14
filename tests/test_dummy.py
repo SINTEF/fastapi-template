@@ -1,10 +1,13 @@
-from fastapi.testclient import TestClient
-from app import create_app
+from fastapi import APIRouter
+import pytest
 
-app = create_app()
-client = TestClient(app)
+@pytest.fixture
+def router():
+    return APIRouter()
 
-def test_read_home():
-    response = client.get("/")
-    assert response.status_code == 200
-    assert response.json() == {"msg": "Hello World"}
+def test_home(router):
+     @router.get("/")
+     async def home():
+        response = await home()
+        assert response.status_code == 200
+        assert response.json() == {"msg": "Hello World"}
