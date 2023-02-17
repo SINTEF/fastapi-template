@@ -30,7 +30,7 @@ RUN bandit -r app \
 RUN pytest --cov app tests/
 
 # Run with reload option
-CMD hypercorn wsgi:app --bind 0.0.0.0:8080 --reload
+CMD hypercorn asgi:app --bind 0.0.0.0:8080 --reload
 EXPOSE 8080
 
 
@@ -39,5 +39,5 @@ FROM base as production
 COPY . .
 
 # Run app
-CMD hypercorn wsgi:app --bind 0.0.0.0:80
+CMD hypercorn asgi:app --bind 0.0.0.0:80
 EXPOSE 80
