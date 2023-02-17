@@ -1,13 +1,19 @@
-from fastapi import APIRouter
-import pytest
+"""
+Example unit test
+"""
 
-@pytest.fixture
-def router():
-    return APIRouter()
+from fastapi.testclient import TestClient
+from asgi import app
 
-def test_home(router):
-     @router.get("/")
-     async def home():
-        response = await home()
-        assert response.status_code == 200
-        assert response.json() == {"msg": "Hello World"}
+client = TestClient(app)
+
+
+def test_home():
+    """
+    GIVEN a FastAPI app
+    WHEN the user requests the home endpoint
+    THEN the response should have a 200 status code and a "Hello World" message.
+    """
+    response = client.get("/")
+    assert response.status_code == 200
+    assert response.json() == {"msg": "Hello World"}

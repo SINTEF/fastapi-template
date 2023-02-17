@@ -1,14 +1,7 @@
 """
-app init
+dummy fast-api services
 """
-from fastapi import FastAPI
-from app.routers import dummy
 
-
-def create_app():
-    """
-    Create the FastAPI app
-    """
-    app = FastAPI()
-    app.include_router(dummy.router)
-    return app
+__version__ = "0.0.1"
+__author__ = "AUTHOR"
+__author_email__ = "AUTHOR@mail.com"
