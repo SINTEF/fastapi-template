@@ -2,11 +2,11 @@
 Creating the FastAPI application
 """
 from fastapi import FastAPI
-from app.routers.dummy import router as dummy_router
+from app.routers import dummy
 from app import __version__
 
 
-def create_app():
+def create_app() -> FastAPI:
     """
     Create the FastAPI app and include a dummy router.
 
@@ -19,7 +19,7 @@ def create_app():
         description="Start your project here",
     )
 
-    app.include_router(dummy_router)
+    app.include_router(dummy.router)
     return app
 
 
