@@ -41,5 +41,5 @@ toml==0.10.2
 tomli==2.0.1
 typing==3.7.4.3
 typing-extensions==4.10.0
-urllib3==2.2.1
+urllib3==2.2.2
 wsproto==1.2.0
